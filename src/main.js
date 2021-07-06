@@ -2,16 +2,16 @@ import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-// import dotenv from 'dotenv';
+import dotenv from 'dotenv';
 import path from 'path';
 // import cors from 'cors';
 import passport from 'passport';
 
-// import passportConfig from './passport';
-// import authRouter from './routes/auth';
-// import postsRouter from './routes/posts';
+import passportConfig from './passport';
+import indexRouter from './routes/index';
+import authRouter from './routes/auth';
 
-// dotenv.config();
+dotenv.config();
 
 // const corsOption = {
 //   origin: 'http://localhost:3000/',
@@ -23,7 +23,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.set('port', process.env.PORT || 3000);
-// passportConfig();
+passportConfig();
 
 // app.use(cors(corsOption));
 app.use(morgan('dev'));
@@ -43,12 +43,13 @@ app.use(
     name: 'session-cookie',
   }),
 );
+console.log(process.env.COOKIE_SECRET);
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use('/auth', authRouter);
-// app.use('/posts', postsRouter);
+app.use('/', indexRouter);
+app.use('/auth', authRouter);
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
