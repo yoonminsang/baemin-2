@@ -1,0 +1,25 @@
+body {
+  padding: 1.5rem;
+}
+.input1 {
+  border: 0;
+  padding: 0.5rem 0.25rem;
+  font-size: 1.125rem;
+  border-bottom: 1px solid #f1f1f1;
+  color: #292929;
+}
+.input1::placeholder {
+  color: #c0c0c0;
+}
+.input1:not(:first-child) {
+  margin-top: 0.5rem;
+}
+.btn1 {
+  border: 0;
+  border-radius: 0.3125rem;
+  background: #28c0bc;
+  color: white;
+  height: 2.5rem;
+  font-size: 1.125rem;
+  padding: 0.5rem;
+}
