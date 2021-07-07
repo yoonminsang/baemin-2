@@ -43,12 +43,6 @@ header.signup-verify a {
   height: 100%;
   display: none;
 }
-/* .agree .agree-div .lab-check.off .img-check-off {
-  display: block;
-}
-.agree .agree-div .lab-check.on .img-check-on {
-  display: block;
-} */
 .agree .agree-div span {
   margin-left: 0.5rem;
   font-size: 0.875rem;
@@ -95,7 +89,6 @@ header.signup-verify a {
   display: flex;
   flex-direction: column;
 }
-.footer a {
-  text-align: center;
-  line-height: 1.5rem;
+.footer .btn1.disabled {
+  background: #e6e6e6;
 }

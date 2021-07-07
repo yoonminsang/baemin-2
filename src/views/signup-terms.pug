@@ -62,14 +62,14 @@ block content
             button.spread
                 img(src='/image/화살표.png')
     div.age-select
-        input.inp-check(type='checkbox' id='inp-check-a')
-        label.lab-age-check.off(for='inp-check-a')
+        input.inp-check(type='radio' id='inp-check-a-1' name='age')
+        label.lab-age-check.off(for='inp-check-a-1')
             img.img-check-off(src='/image/14세이상_F.png')
             img.img-check-on(src='/image/14세이상_T.png')
-        input.inp-check(type='checkbox' id='inp-check-b')
-        label.lab-age-check.off(for='inp-check-b')
+        input.inp-check(type='radio' id='inp-check-a-2' name='age')
+        label.lab-age-check.off(for='inp-check-a-2')
             img.img-check-off(src='/image/14세미만_F.png')
             img.img-check-on(src='/image/14세미만_T.png')
     div.footer
-        a.btn1(href='/signup/verify') 다음으로
-    script(src="/scripts/signupTerms.js") 
+        button.btn1.disabled 다음으로
+    script(src="/scripts/signupTerms.js", type='module')
