@@ -26,7 +26,13 @@ header.signup-verify button {
 }
 
 .next-btn {
+  color: var(--baemin-blue);
+  pointer-events: initial;
+}
+
+.inactive {
   color: var(--unable-grey);
+  pointer-events: none;
 }
 
 .input-container {
