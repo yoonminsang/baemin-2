@@ -22,6 +22,31 @@
     let passwordCheck = false;
     let birthCheck = false;
 
+    function checkAllInfoFilled() {
+        const nextBtn = document.querySelector('a.next-btn');
+
+        if (
+            emailCheck === true && 
+            nicknameCheck === true && 
+            passwordCheck === true &&
+            birthCheck === true
+        ) {
+            nextBtn.classList.remove('inactive');
+        } else {
+            if (nextBtn.classList.contains('inactive') === false) {// 활성화 상태인경우, 비활성화
+                nextBtn.classList.add('inactive');
+            }
+        }
+    }
+
+    function handleRemoveClickListener(e) {
+        const $input = document.querySelector('input#phone');
+    
+        $input.value = '';
+        $input.focus();
+    }
+    
+
     function toggleCheck($this, isPassed) {
         const $inputContainer = $this.closest('.input-container');
         const $img = $inputContainer.querySelector('.validation img');
@@ -29,26 +54,23 @@
 
         if (isPassed) {
             if (icon.startsWith('검증_T') === false) {
-                img.src = '/image/검증_T.png';
+                $img.src = '/image/검증_T.png';
                 isPhoneNumberFull = true;
             }
         } else {
             if (icon.startsWith("검증_F") === false) {
-                img.src = "/image/검증_F.png"
+                $img.src = "/image/검증_F.png"
                 isPhoneNumberFull = false;
             }
         }
     }
 
     function handleInputFocusListener(e) {
-        // x 표시
-        // 미표시
-        // focusin, blur 모두에 달아줌
         const $inputContainer = e.target.closest('.input-container');
         const $reset = $inputContainer.querySelector('.reset');
-        if ($reset.classList.contains('hidden') === true) {
+        if (e.type === 'focusin') {
             $reset.classList.remove('hidden')
-        } else {
+        } else if (e.type === 'blur') {
             $reset.classList.add('hidden');
         }
     }
@@ -57,28 +79,42 @@
         const { value } = e.target;
         if (value === '' || value === null) {
             toggleCheck(this, false);
+            nicknameCheck = false
         } else {
             toggleCheck(this, true);
+            nicknameCheck = true;
         }
+        checkAllInfoFilled();
     }
 
-    function handleDuplicateCheckListener() {
-        const $nickname = '';
-        const $password = '';
-        const $birth = '';
+    function handleDuplicateCheckListener(e) {
+        e.preventDefault();
+        const $nickname = document.querySelector('.input-container.nickname');
+        const $password = document.querySelector('.input-container.password');
+        const $birth = document.querySelector('.input-container.birth');
 
-        const { value } = e.target;
+        const $inputContainer = e.target.closest('.input-container');
+        const $emailInput = $inputContainer.querySelector('input#email');
+        const $emailValidation = document.querySelector('.email-validation');
+
+        const { value } = $emailInput;
+
         if (value === '' || value === null) {
             toggleCheck(this, false);
+            emailCheck = false;
         } else {
+            $emailValidation.classList.remove('hidden');
             toggleCheck(this, true);
+            emailCheck = true;
         }
+        checkAllInfoFilled();
+
         $nickname.classList.remove('hidden');
         $password.classList.remove('hidden');
         $birth.classList.remove('hidden');
     }
 
-    function checkNoCotinuousNumber(password) {
+    function checkNoContinuousNumber(password) {
         const sameNumberCondition = ['000', '111', '222', '333', '444', '555', '666', '777', '888', '999'];
         const continuousCondition = ['012', '123', '234',  '345', '456', '567', '678', '789'];
 
@@ -89,7 +125,7 @@
         const resultSameNumber = sameNumberCondition.every(value => password.indexOf(value) === -1);
         if (resultSameNumber === false) return false;
 
-        const resultContinuous = continuousCondition.every(value => password.indexOf(value) === -1 && password.indexOf(strReverse(str)) === -1)
+        const resultContinuous = continuousCondition.every(value => password.indexOf(value) === -1 && password.indexOf(strReverse(value)) === -1)
         if (resultContinuous === false) return false;
 
         return true;
@@ -115,7 +151,7 @@
             }
         }
 
-        password.forEach(char => {
+        password.split('').forEach(char => {
             characterFilter(char);
         });
         const typeCount = Object.values(types).reduce((total, exist) => total + exist, 0);
@@ -126,14 +162,14 @@
     function passwordValidationCheck(password) {
         if (password.length < 10) return false;
         if (checkAtLeastTwoTypesExist(password) === false) return false;
-        if (checkNoCotinuousNumber(password) === false) return false;
+        if (checkNoContinuousNumber(password) === false) return false;
 
         return true;
     }
 
     function handlePasswordInputListener(e) {
         const { value: password } = e.target;
-        const $error = '';
+        const $error = document.querySelector('.input-container.password .error');
 
         if (passwordValidationCheck(password)) {
             if ($error.classList.contains('hidden') === false) {
@@ -146,28 +182,53 @@
             passwordCheck = false;
             toggleCheck(this, false);
         }
+        checkAllInfoFilled();
     }
 
     function handleBirthInputListener(e) {
         if (e.key === 'Delete' || e.key === 'Backspace')
             return ;
 
-        const $error = '';
+        const $error = document.querySelector('.input-container.birth .error');
         const { value } = e.target;
-        
-        if (value.length < 12) {
-            $error.classList.remove('.hidden');
-            toggleCheck(this, false);
-        } else {
-            $error.classList.add('.hidden');
-            toggleCheck(this, true);
-        }
 
+        if (value.length < 10) {
+            $error.classList.remove('hidden');
+            toggleCheck(this, false);
+            birthCheck = false;
+        } else {
+            $error.classList.add('hidden');
+            toggleCheck(this, true);
+            birthCheck = true;
+        }
+        checkAllInfoFilled();
         if (value.length === 4) { // 2000.
             this.value = value + '.';
-        } else if (value.length === 6) { // 2000.05.
+        } else if (value.length === 7) { // 2000.05.
             this.value = value + '.';
         }
     }
 
+    const $emailInput = document.querySelector('input#email');
+    const $nicknameInput = document.querySelector('input#nickname');
+    const $passwordInput = document.querySelector('input#password');
+    const $birthInput = document.querySelector('input#birth');
+    const $duplicateCheckBtn = document.querySelector('.duplicate-check');
+
+    $emailInput.addEventListener('focusin', handleInputFocusListener);
+    $emailInput.addEventListener('blur', handleInputFocusListener);
+
+    $nicknameInput.addEventListener('focusin', handleInputFocusListener);
+    $nicknameInput.addEventListener('blur', handleInputFocusListener);
+    $nicknameInput.addEventListener('keyup', handleNickNameInputListener);
+
+    $passwordInput.addEventListener('focusin', handleInputFocusListener);
+    $passwordInput.addEventListener('blur', handleInputFocusListener);
+    $passwordInput.addEventListener('keyup', handlePasswordInputListener);
+
+    $birthInput.addEventListener('focusin', handleInputFocusListener);
+    $birthInput.addEventListener('blur', handleInputFocusListener);
+    $birthInput.addEventListener('keyup', handleBirthInputListener);
+
+    $duplicateCheckBtn.addEventListener('click', handleDuplicateCheckListener);
 })();
