@@ -1,0 +1,101 @@
+:root {
+  --unable-grey: rgb(206, 206, 206);
+  --unable-dark-grey: rgb(170, 170, 170);
+  --focus-grey: rgb(82 82 82);
+  --baemin-blue: #28c0bc;
+}
+header.signup-verify {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+header.signup-verify a {
+  background-color: transparent;
+}
+.prev-btn-image {
+  width: 0.9375rem;
+  height: 0.9375rem;
+}
+.signup-title {
+  font-weight: bold;
+}
+.welcome {
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+.welcome p:not(:first-child) {
+  margin-top: 0.25rem;
+}
+.agree .agree-div {
+  display: flex;
+  align-items: center;
+}
+.agree .agree-div:not(:first-child) {
+  margin-top: 1rem;
+}
+.agree .agree-div .lab-check {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+.agree .agree-div .lab-check img {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+/* .agree .agree-div .lab-check.off .img-check-off {
+  display: block;
+}
+.agree .agree-div .lab-check.on .img-check-on {
+  display: block;
+} */
+.agree .agree-div span {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+}
+.agree .agree-div .spread {
+  background: transparent;
+  width: 0.5rem;
+  margin-left: auto;
+}
+.agree .agree-div .spread img {
+  width: 100%;
+}
+.agree-all {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.agree-container {
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  padding: 1rem 0;
+}
+.age-select {
+  margin-top: 1rem;
+}
+.age-select .lab-age-check {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+.age-select .lab-age-check img {
+  width: 100%;
+  display: none;
+}
+.inp-check {
+  display: none;
+}
+.off .img-check-off {
+  display: inline-block !important;
+}
+.on .img-check-on {
+  display: inline-block !important;
+}
+.footer {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+}
+.footer a {
+  text-align: center;
+  line-height: 1.5rem;
+}
