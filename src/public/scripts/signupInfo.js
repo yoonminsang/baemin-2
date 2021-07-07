@@ -1,26 +1,39 @@
-/**
- * 이메일 입력 후 중복확인 버튼 누르면 v 체크 완료표시 뜬다. 포커스 시에는 x 버튼이 뜬다.
- * x 누르면 해당 인풋 내용삭제(함수 재사용)
- * 체크 표시 뜬후에는 닉네임, 비밀번호, 생년월일 ui 노출
- * 
- * 닉네임도 마찬가지로 체크표시뜬다.
- * 
- * 비밀번호 규칙은 length >= 10, 대문자, 소문자, 숫자, 특수 문자 중 2종류 조합
- * 같은숫자 3개연속 혹은 increment, decrement 숫자 연속 3개 불가능.
- * 오류노출
- * 
- * 생년월일 입력시 자동으로 . 붙인다.
- * 올바르지 않으면 오류 노출.
- * 
- * 모두 정상 입력시. 완료 표시 활성화. 누르면 메인으로.
- */
-
-// 모든 인풋에 대한 리스너. 포커스 할 시에 지우기 버튼 활성화
 (function() {
     let emailCheck = false;
     let nicknameCheck = false;
     let passwordCheck = false;
     let birthCheck = false;
+
+    async function handleSignUp(e) {
+        e.preventDefault();
+        if (!emailCheck || !nicknameCheck || !passwordCheck || !birthCheck) return ;
+
+        const $emailInput = document.querySelector('input#email');
+        const $nicknameInput = document.querySelector('input#nickname');
+        const $passwordInput = document.querySelector('input#password');
+        const $birthInput = document.querySelector('input#birth');
+
+        const value = {
+            email: $emailInput.value,
+            nickname: $nicknameInput.value,
+            passsword: $passwordInput.value,
+            birth: $birthInput.value
+        }
+        try {
+            await fetch('/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(value)
+            })
+        } catch (err) {
+            console.error(err);
+            console.log('회원가입 실패');
+        }
+        
+        location.href = '/';
+    }
 
     function checkAllInfoFilled() {
         const nextBtn = document.querySelector('a.next-btn');
@@ -214,6 +227,7 @@
     const $passwordInput = document.querySelector('input#password');
     const $birthInput = document.querySelector('input#birth');
     const $duplicateCheckBtn = document.querySelector('.duplicate-check');
+    const $signUpBtn = document.querySelector('.next-btn');
 
     $emailInput.addEventListener('focusin', handleInputFocusListener);
     $emailInput.addEventListener('blur', handleInputFocusListener);
@@ -231,4 +245,5 @@
     $birthInput.addEventListener('keyup', handleBirthInputListener);
 
     $duplicateCheckBtn.addEventListener('click', handleDuplicateCheckListener);
+    $signUpBtn.addEventListener('click', handleSignUp)
 })();
