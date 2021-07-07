@@ -78,7 +78,20 @@
         $birth.classList.remove('hidden');
     }
 
-    function checkNoSubsequentNumber(password) {
+    function checkNoCotinuousNumber(password) {
+        const sameNumberCondition = ['000', '111', '222', '333', '444', '555', '666', '777', '888', '999'];
+        const continuousCondition = ['012', '123', '234',  '345', '456', '567', '678', '789'];
+
+        function strReverse(str) {
+            return str.split('').reverse().join('');
+        }
+
+        const resultSameNumber = sameNumberCondition.every(value => password.indexOf(value) === -1);
+        if (resultSameNumber === false) return false;
+
+        const resultContinuous = continuousCondition.every(value => password.indexOf(value) === -1 && password.indexOf(strReverse(str)) === -1)
+        if (resultContinuous === false) return false;
+
         return true;
     }
 
@@ -113,7 +126,7 @@
     function passwordValidationCheck(password) {
         if (password.length < 10) return false;
         if (checkAtLeastTwoTypesExist(password) === false) return false;
-        if (checkNoSubsequentNumber(password) === false) return false;
+        if (checkNoCotinuousNumber(password) === false) return false;
 
         return true;
     }
