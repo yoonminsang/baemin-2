@@ -67,7 +67,6 @@ function Next({ initialState, check }) {
   const $btn = $footer.querySelector('.btn1');
   this.state = initialState;
   this.setState = (nextState) => {
-    console.log(this.state, nextState);
     this.state = nextState;
     this.render();
   };
