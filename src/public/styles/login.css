@@ -1,14 +1,11 @@
 .header {
   display: flex;
-  /* margin-top: 1rem; */
 }
 .header .close-btn {
   width: 0.9375rem;
   height: 0.9375rem;
   background: transparent;
   border: 0;
-  /* margin-top: 1rem;
-  margin-left: 1rem; */
 }
 .header .close-btn img {
   width: 100%;
@@ -23,6 +20,12 @@
 }
 .login-content form .btn1 {
   margin-top: 1.5rem;
+}
+.login-content form .error {
+  margin-top: 1rem;
+  text-align: center;
+  color: red;
+  font-size: 1rem;
 }
 .find-content {
   margin-top: 1rem;
@@ -69,4 +72,7 @@
 .footer .helper a {
   color: #7fd3d2;
   margin-left: 0.25rem;
+}
+a {
+  cursor: pointer;
 }
