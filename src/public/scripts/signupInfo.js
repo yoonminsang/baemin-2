@@ -198,9 +198,32 @@
         checkAllInfoFilled();
     }
 
+    function verifyBirth(birth) {
+        const [_, month, date] = birth.split('.').map(Number);
+        if ([1, 3, 5, 7, 8, 10, 12].includes(month)) {
+            if (date <= 31) {
+                return true;
+            }
+        } else if (month === 2) {
+            if (date <= 29) {
+                return true;
+            }
+        } else if (month <= 12) {
+            if (date <= 30) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function handleBirthInputListener(e) {
-        if (e.key === 'Delete' || e.key === 'Backspace')
+        if (e.inputType === 'deleteContentBackward') {
+            if (this.value.length === 4 || this.value.length === 7) {
+                this.value = this.value.slice(0, this.value.length - 1);
+            }
+            toggleCheck(this, false);
             return ;
+        }
 
         const $error = document.querySelector('.input-container.birth .error');
         const { value } = e.target;
@@ -210,9 +233,12 @@
             toggleCheck(this, false);
             birthCheck = false;
         } else {
-            $error.classList.add('hidden');
-            toggleCheck(this, true);
-            birthCheck = true;
+            if (verifyBirth(this.value) === true) {
+                $error.classList.add('hidden');
+                toggleCheck(this, true);
+                birthCheck = true;
+            }
+            
         }
         checkAllInfoFilled();
         if (value.length === 4) { // 2000.
@@ -234,15 +260,15 @@
 
     $nicknameInput.addEventListener('focusin', handleInputFocusListener);
     $nicknameInput.addEventListener('blur', handleInputFocusListener);
-    $nicknameInput.addEventListener('keyup', handleNickNameInputListener);
+    $nicknameInput.addEventListener('input', handleNickNameInputListener);
 
     $passwordInput.addEventListener('focusin', handleInputFocusListener);
     $passwordInput.addEventListener('blur', handleInputFocusListener);
-    $passwordInput.addEventListener('keyup', handlePasswordInputListener);
+    $passwordInput.addEventListener('input', handlePasswordInputListener);
 
     $birthInput.addEventListener('focusin', handleInputFocusListener);
     $birthInput.addEventListener('blur', handleInputFocusListener);
-    $birthInput.addEventListener('keyup', handleBirthInputListener);
+    $birthInput.addEventListener('input', handleBirthInputListener);
 
     $duplicateCheckBtn.addEventListener('click', handleDuplicateCheckListener);
     $signUpBtn.addEventListener('click', handleSignUp)
