@@ -4,6 +4,21 @@
   let passwordCheck = false;
   let birthCheck = false;
 
+  async function signUp(data) {
+    try {
+      const res = await fetch('/auth/signup', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      return res;
+    } catch (err) {
+      console.error(e);
+    }
+  }
+
   async function handleSignUp(e) {
     e.preventDefault();
     if (!emailCheck || !nicknameCheck || !passwordCheck || !birthCheck) return;
@@ -20,13 +35,7 @@
       birth: $birthInput.value,
     };
     try {
-      const res = await fetch('/auth/signup', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(value),
-      });
+      const res = await signUp(value);
       if (res.ok) {
         alert('회원가입 완료');
         location.href = '/';
@@ -59,7 +68,10 @@
   }
 
   function handleRemoveClickListener(e) {
-    const $input = document.querySelector('input#phone');
+    if (!e.target.classList.contains('input-container')) return ;
+      
+    const $inputContainer = e.target;
+    const $input = $inputContainer.querySelector('input');
 
     $input.value = '';
     $input.focus();
@@ -84,8 +96,10 @@
   }
 
   function handleInputFocusListener(e) {
+      console.log(e.target)
     const $inputContainer = e.target.closest('.input-container');
     const $reset = $inputContainer.querySelector('.reset');
+
     if (e.type === 'focusin') {
       $reset.classList.remove('hidden');
     } else if (e.type === 'blur') {
@@ -105,6 +119,27 @@
     checkAllInfoFilled();
   }
 
+  function emailValidation(email) {
+    return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(email);
+  }
+
+  async function emailDuplicateCheck(email) {
+    try {
+        const res = await fetch('/auth/check', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        });
+        return res;
+      } catch (e) {
+        console.error(e);
+      }
+  }
+
   async function handleDuplicateCheckListener(e) {
     e.preventDefault();
 
@@ -117,48 +152,38 @@
     const $emailValidation = document.querySelector('.email-validation');
 
     const { value } = $emailInput;
+
     if (value === '' || value === null) {
       alert('이메일을 입력해주세요');
       toggleCheck(this, false);
       emailCheck = false;
-    } else if (
-      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(
-        value,
-      ) === false
-    ) {
+    } else if (emailValidation(value) === false) {
       alert('올바르지 않은 이메일 형식입니다');
       toggleCheck(this, false);
       emailCheck = false;
     } else {
-      try {
-        const res = await fetch('/auth/check', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: value,
-          }),
-        });
-        const data = await res.json();
-        if (res.ok) {
-          alert(data);
+        try {
+            const res = await emailDuplicateCheck(value);
+            const data = await res.json();
 
-          $emailValidation.classList.remove('hidden');
-          toggleCheck(this, true);
-          emailCheck = true;
-          checkAllInfoFilled();
+            if (res.ok) {
+                alert(data);
 
-          $nickname.classList.remove('hidden');
-          $password.classList.remove('hidden');
-          $birth.classList.remove('hidden');
-        } else {
-          if (res.status === 409) alert(data);
-          else alert('서버 오류. 다시 시도해주세요');
+                $emailValidation.classList.remove('hidden');
+                toggleCheck(this, true);
+                emailCheck = true;
+                checkAllInfoFilled();
+
+                $nickname.classList.remove('hidden');
+                $password.classList.remove('hidden');
+                $birth.classList.remove('hidden');
+            } else {
+                if (res.status === 409) alert(data);
+                else alert('서버 오류. 다시 시도해주세요');
+            }
+        } catch (e) {
+            console.error(e);
         }
-      } catch (e) {
-        console.error(e);
-      }
     }
   }
 
@@ -316,12 +341,17 @@
     }
   }
 
+  const $form = document.querySelector('.signup-info-container');
   const $emailInput = document.querySelector('input#email');
   const $nicknameInput = document.querySelector('input#nickname');
   const $passwordInput = document.querySelector('input#password');
   const $birthInput = document.querySelector('input#birth');
   const $duplicateCheckBtn = document.querySelector('.duplicate-check');
   const $signUpBtn = document.querySelector('.next-btn');
+  const $reset = document.querySelector('.reset');
+
+  $form.addEventListener('click', handleRemoveClickListener);
+//   $form.addEventListener('focusin', handleInputFocusListener);
 
   $emailInput.addEventListener('focusin', handleInputFocusListener);
   $emailInput.addEventListener('blur', handleInputFocusListener);
