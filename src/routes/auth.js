@@ -17,21 +17,24 @@ router
       if (!user) return res.status(409).json('이메일 또는 비밀번호가 틀립니다');
       req.logIn(user, (err) => {
         if (err) return next(err);
-        return res.redirect('/');
+        res.json('로그인 성공');
       });
     })(req, res, next);
   });
 router.get('/signup/terms', (req, res) => {
-  const user = req.user || null;
-  res.render('signup-terms', { title: '회원가입 페이지', user });
+  const user = req.user;
+  if (user) res.redirect('/');
+  res.render('signup-terms', { title: '회원가입 페이지' });
 });
 router.get('/signup/verify', (req, res) => {
-  const user = req.user || null;
-  res.render('signup-verify', { title: '회원가입 페이지', user });
+  const user = req.user;
+  if (user) res.redirect('/');
+  res.render('signup-verify', { title: '회원가입 페이지' });
 });
 router.get('/signup/info', (req, res) => {
-  const user = req.user || null;
-  res.render('signup-info', { title: '회원가입 페이지', user });
+  const user = req.user;
+  if (user) res.redirect('/');
+  res.render('signup-info', { title: '회원가입 페이지' });
 });
 router.post('/signup', async (req, res) => {
   const id = uuidv4();
