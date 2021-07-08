@@ -12,13 +12,14 @@
         const $nicknameInput = document.querySelector('input#nickname');
         const $passwordInput = document.querySelector('input#password');
         const $birthInput = document.querySelector('input#birth');
-
+        
         const value = {
             email: $emailInput.value,
             nickname: $nicknameInput.value,
-            passsword: $passwordInput.value,
+            password: $passwordInput.value,
             birth: $birthInput.value
         }
+        console.log(value)
         try {
             await fetch('/auth/signup', {
                 method: 'POST',
