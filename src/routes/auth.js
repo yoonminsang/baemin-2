@@ -8,8 +8,9 @@ const router = express.Router();
 router
   .route('/login')
   .get((req, res) => {
-    const user = req.user || null;
-    res.render('login', { title: '로그인 페이지', user });
+    const user = req.user;
+    if (user) res.redirect('/');
+    res.render('login', { title: '로그인 페이지' });
   })
   .post((req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
