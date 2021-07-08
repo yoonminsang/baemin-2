@@ -107,6 +107,7 @@
 
   function handleDuplicateCheckListener(e) {
     e.preventDefault();
+    
     const $nickname = document.querySelector('.input-container.nickname');
     const $password = document.querySelector('.input-container.password');
     const $birth = document.querySelector('.input-container.birth');
@@ -118,18 +119,20 @@
     const { value } = $emailInput;
 
     if (value === '' || value === null) {
-      toggleCheck(this, false);
-      emailCheck = false;
+        alert('이메일을 입력해주세요');
+        toggleCheck(this, false);
+        emailCheck = false;
     } else {
-      $emailValidation.classList.remove('hidden');
-      toggleCheck(this, true);
-      emailCheck = true;
-    }
-    checkAllInfoFilled();
+        $emailValidation.classList.remove('hidden');
+        toggleCheck(this, true);
+        emailCheck = true;
+        checkAllInfoFilled();
 
-    $nickname.classList.remove('hidden');
-    $password.classList.remove('hidden');
-    $birth.classList.remove('hidden');
+        $nickname.classList.remove('hidden');
+        $password.classList.remove('hidden');
+        $birth.classList.remove('hidden');
+    }
+    
   }
 
   function checkNoContinuousNumber(password) {
