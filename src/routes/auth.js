@@ -75,4 +75,17 @@ router.get('/logout', (req, res) => {
   req.session.destroy();
   res.json('로그아웃');
 });
+router.post('/check', (req, res) => {
+  const { email } = req.body;
+  if (
+    db
+      .get('users')
+      .find({
+        email,
+      })
+      .value()
+  )
+    return res.status(409).json('이메일이 존재합니다');
+  return res.json('사용할 수 있는 이메일입니다');
+});
 export default router;
