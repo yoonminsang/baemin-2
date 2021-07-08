@@ -40,9 +40,13 @@
         checkAllInfoFilled();
     }
     
-    function handleKeyupListener(e) {
-        if (e.key === 'Delete' || e.key === 'Backspace')
+    function handleInputListener(e) {
+        if (e.inputType === 'deleteContentBackward') {
+            if (this.value.length === 3 || this.value.length === 8) {
+                this.value = this.value.slice(0, this.value.length - 1);
+            }
             return ;
+        }
 
         const { value } = e.target;
     
@@ -100,8 +104,8 @@
     const $verifyInput = document.querySelector('#verify-number');
 
     $verifyBtn.addEventListener('click', handleVerifyClickListener);
-    $phoneInput.addEventListener('keyup', handleKeyupListener);
-    $phoneInput.addEventListener('keyup', handleFullNumberListener);
+    $phoneInput.addEventListener('input', handleInputListener);
+    $phoneInput.addEventListener('input', handleFullNumberListener);
     $resetBtn.addEventListener('click', handleRemoveClickListener);
     $verifyAgainBtn.addEventListener('click', fillVerifyNumber);
     $verifyInput.addEventListener('input', handleVerifyInputListener);
