@@ -24,11 +24,11 @@
             password,
           }),
         });
+        const data = await res.json();
         if (res.ok) {
-          console.log('로그인 성공');
+          console.log(data);
           location.href = '/';
         } else {
-          const data = await res.json();
           if (res.status === 409) alert(data);
           else alert('서버 오류. 다시 시도해주세요');
         }

@@ -70,4 +70,9 @@ router.post('/signup', async (req, res) => {
     .write();
   return res.json('회원가입 완료');
 });
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.json('로그아웃');
+});
 export default router;
