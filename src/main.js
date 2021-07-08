@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import path from 'path';
-// import cors from 'cors';
 import passport from 'passport';
 
 import passportConfig from './passport';
@@ -13,20 +12,22 @@ import authRouter from './routes/auth';
 
 dotenv.config();
 
-// const corsOption = {
-//   origin: 'http://localhost:3000/',
-// };
-
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.set('port', process.env.PORT || 3000);
+
 passportConfig();
 
-// app.use(cors(corsOption));
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('combined'));
+  app.use(helmet());
+  app.use(hpp());
+} else {
+  app.use(morgan('dev'));
+}
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +40,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: false,
+      maxAge: 1000 * 60 * 60 * 24, // 1일
     },
     name: 'session-cookie',
   }),
@@ -51,7 +53,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 
 app.use((req, res, next) => {
-  res.render('404', { title: '에러 페이지' })
+  res.render('404', { title: '에러 페이지' });
 });
 
 app.use((err, req, res, next) => {
