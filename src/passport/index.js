@@ -1,5 +1,5 @@
 import passport from 'passport';
-// import db from '../db';
+import db from '../db/index.js';
 import Strategy from 'passport-local';
 import bcrypt from 'bcrypt';
 const LocalStrategy = Strategy.Strategy;
@@ -12,10 +12,13 @@ const passportConfig = () => {
 
   passport.deserializeUser(async (id, done) => {
     try {
-      //   const [[user]] = await db.query(
-      //     `SELECT id, email, grade FROM users WHERE id='${id}'`
-      //   );
-      user = null;
+      const user = db
+        .get('users')
+        .find({
+          id,
+        })
+        .value();
+      delete user.password;
       console.log('deserialize', user);
       done(null, user);
     } catch (e) {
@@ -32,14 +35,17 @@ const passportConfig = () => {
       async (email, password, done) => {
         try {
           console.log('local strategy', email, password);
-          //   const [[user]] = await db.query(
-          //     `SELECT * FROM users WHERE email='${email}'`
-          //   );
-          //   if (user) {
-          //     const match = await bcrypt.compare(password, user.password);
-          //     if (match) return done(null, user);
-          //     return done(null, false);
-          //   }
+          const user = db
+            .get('users')
+            .find({
+              email,
+            })
+            .value();
+          if (user) {
+            const match = await bcrypt.compare(password, user.password);
+            if (match) return done(null, user);
+            return done(null, false);
+          }
           return done(null, false);
         } catch (e) {
           console.error('local passport error', e);
