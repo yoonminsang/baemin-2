@@ -105,9 +105,9 @@
     checkAllInfoFilled();
   }
 
-  function handleDuplicateCheckListener(e) {
+  async function handleDuplicateCheckListener(e) {
     e.preventDefault();
-    
+
     const $nickname = document.querySelector('.input-container.nickname');
     const $password = document.querySelector('.input-container.password');
     const $birth = document.querySelector('.input-container.birth');
@@ -117,22 +117,49 @@
     const $emailValidation = document.querySelector('.email-validation');
 
     const { value } = $emailInput;
-
     if (value === '' || value === null) {
-        alert('이메일을 입력해주세요');
-        toggleCheck(this, false);
-        emailCheck = false;
+      alert('이메일을 입력해주세요');
+      toggleCheck(this, false);
+      emailCheck = false;
+    } else if (
+      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(
+        value,
+      ) === false
+    ) {
+      alert('올바르지 않은 이메일 형식입니다');
+      toggleCheck(this, false);
+      emailCheck = false;
     } else {
-        $emailValidation.classList.remove('hidden');
-        toggleCheck(this, true);
-        emailCheck = true;
-        checkAllInfoFilled();
+      try {
+        const res = await fetch('/auth/check', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: value,
+          }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert(data);
 
-        $nickname.classList.remove('hidden');
-        $password.classList.remove('hidden');
-        $birth.classList.remove('hidden');
+          $emailValidation.classList.remove('hidden');
+          toggleCheck(this, true);
+          emailCheck = true;
+          checkAllInfoFilled();
+
+          $nickname.classList.remove('hidden');
+          $password.classList.remove('hidden');
+          $birth.classList.remove('hidden');
+        } else {
+          if (res.status === 409) alert(data);
+          else alert('서버 오류. 다시 시도해주세요');
+        }
+      } catch (e) {
+        console.error(e);
+      }
     }
-    
   }
 
   function checkNoContinuousNumber(password) {
@@ -277,6 +304,9 @@
       }
     }
     checkAllInfoFilled();
+
+    this.value = this.value.replace(/[^0-9.]/g, '');
+
     if (value.length === 4) {
       // 2000.
       this.value = value + '.';

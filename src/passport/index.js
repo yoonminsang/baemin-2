@@ -18,8 +18,9 @@ const passportConfig = () => {
           id,
         })
         .value();
-      delete user.password;
-      console.log('deserialize', user);
+      const copyUser = Object.assign({}, user);
+      delete copyUser.password;
+      console.log('deserialize', copyUser);
       done(null, user);
     } catch (e) {
       console.error('deserialize error', e);
@@ -34,15 +35,17 @@ const passportConfig = () => {
       },
       async (email, password, done) => {
         try {
-          console.log('local strategy', email, password);
+          console.log('local strategy', email);
           const user = db
             .get('users')
             .find({
               email,
             })
             .value();
+          console.log('user', user);
           if (user) {
             const match = await bcrypt.compare(password, user.password);
+            console.log(match);
             if (match) return done(null, user);
             return done(null, false);
           }
