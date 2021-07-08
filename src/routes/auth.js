@@ -2,6 +2,7 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import db from '../db/index.js';
+
 const router = express.Router();
 router.get('/', (req, res) => {
   const { user } = req;
