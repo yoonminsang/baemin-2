@@ -4,6 +4,7 @@
   let passwordCheck = false;
   let birthCheck = false;
 
+  // sign up
   async function signUp(data) {
     try {
       const res = await fetch('/auth/signup', {
@@ -49,6 +50,7 @@
     }
   }
 
+  // activate next step
   function checkAllInfoFilled() {
     const nextBtn = document.querySelector('a.next-btn');
 
@@ -67,6 +69,7 @@
     }
   }
 
+  // remove entire input
   function handleRemoveClickListener(e) {
     if (!e.target.classList.contains('input-container')) return ;
       
@@ -77,6 +80,7 @@
     $input.focus();
   }
 
+  // change valid check status
   function toggleCheck($this, isPassed) {
     const $inputContainer = $this.closest('.input-container');
     const $img = $inputContainer.querySelector('.validation img');
@@ -95,6 +99,7 @@
     }
   }
 
+  // on / off remove button of each input 
   function handleInputFocusListener(e) {
       console.log(e.target)
     const $inputContainer = e.target.closest('.input-container');
@@ -107,6 +112,7 @@
     }
   }
 
+  // nickname validation
   function handleNickNameInputListener(e) {
     const { value } = e.target;
     if (value === '' || value === null) {
@@ -119,6 +125,7 @@
     checkAllInfoFilled();
   }
 
+  // email validation
   function emailValidation(email) {
     return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(email);
   }
@@ -187,6 +194,7 @@
     }
   }
 
+  // password validation
   function checkNoContinuousNumber(password) {
     const sameNumberCondition = [
       '000',
@@ -287,6 +295,7 @@
     checkAllInfoFilled();
   }
 
+  // birth validation
   function verifyBirth(birth) {
     const [_, month, date] = birth.split('.').map(Number);
     if ([1, 3, 5, 7, 8, 10, 12].includes(month)) {
@@ -341,6 +350,7 @@
     }
   }
 
+  // listeners
   const $form = document.querySelector('.signup-info-container');
   const $emailInput = document.querySelector('input#email');
   const $nicknameInput = document.querySelector('input#nickname');
