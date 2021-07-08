@@ -10,10 +10,17 @@ block content
     div.container
         a.banner
             img(src='/image/배너.png')
-        a.menu-wrapper(href='/auth/login')
-            img.profile-img(src='/image/프로필.png')
-            span 로그인해주세요
-            img.arrow-img(src='/image/화살표.png')
+        if user
+            a.menu-wrapper()
+                img.profile-img(src='/image/프로필.png')
+                span 더귀한분,
+                span.user-name #{user.nickname}
+                img.arrow-img(src='/image/화살표.png')
+        unless user
+            a.menu-wrapper(href='/auth/login')
+                img.profile-img(src='/image/프로필.png')
+                span 로그인해주세요
+                img.arrow-img(src='/image/화살표.png')
         div.option-wrapper
             a
                 img(src='/image/포인트.png' alt='포인트')

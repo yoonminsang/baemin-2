@@ -38,6 +38,10 @@ body {
   margin-left: 1rem;
   font-size: 1.25rem;
 }
+.menu-wrapper .user-name {
+  color: #1d1d1d;
+  margin-left: 0.5rem;
+}
 .menu-wrapper .txt-green {
   color: #74ae5e;
   font-size: 1rem;
@@ -85,4 +89,8 @@ body {
 .menu-wrapper .wrapper-2 .new-img {
   width: 1.55rem;
   margin-left: 0.5rem;
+}
+h1 {
+  font-size: 1rem;
+  margin: 0;
 }
