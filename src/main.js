@@ -5,6 +5,8 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 import path from 'path';
 import passport from 'passport';
+import hpp from 'hpp';
+import helmet from 'helmet';
 
 import passportConfig from './passport';
 import indexRouter from './routes/index';

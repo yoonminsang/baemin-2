@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "helmet": "^4.6.0",
+    "hpp": "^0.2.3",
     "lowdb": "^1.0.0",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
