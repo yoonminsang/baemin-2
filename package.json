@@ -1,0 +1,42 @@
+{
+  "name": "baemin-2",
+  "version": "0.0.1",
+  "description": "우아한 테크캠프 4기 1주차 팀 2 - 안준범, 윤민상",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch src/ -r esm src/index.js",
+    "start": "NODE_ENV=production PORT=80 pm2 start src/index.js --node-args='-r esm'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ywoowa-techcamp-2021/baemin-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ywoowa-techcamp-2021/baemin-2/issues"
+  },
+  "homepage": "https://github.com/ywoowa-techcamp-2021/baemin-2#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "helmet": "^4.6.0",
+    "hpp": "^0.2.3",
+    "lowdb": "^1.0.0",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pm2": "^5.1.0",
+    "pug": "^3.0.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}

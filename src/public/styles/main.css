@@ -1,0 +1,96 @@
+body {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+.header {
+  display: flex;
+  justify-content: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.banner {
+  margin-top: 1rem;
+}
+.banner img {
+  width: 100%;
+}
+.menu-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #fafafa;
+}
+.menu-wrapper.padding {
+  border-top: 0.5rem solid #f6f6f6;
+  border-bottom: 0.5rem solid #f6f6f6;
+}
+.menu-wrapper .profile-img {
+  width: 2.5rem;
+}
+.menu-wrapper .disposable-img {
+  width: 2rem;
+}
+.menu-wrapper span {
+  color: #8f8f8f;
+  margin-left: 1rem;
+  font-size: 1.25rem;
+}
+.menu-wrapper .user-name {
+  color: #1d1d1d;
+  margin-left: 0.5rem;
+}
+.menu-wrapper .txt-green {
+  color: #74ae5e;
+  font-size: 1rem;
+}
+.menu-wrapper .arrow-img {
+  width: 0.5rem;
+  margin-left: auto;
+}
+.option-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1px;
+  background: #fafafa;
+}
+.option-wrapper a {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+}
+.option-wrapper a img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.option-wrapper a span {
+  margin-top: 0.5rem;
+  color: #aaaaaa;
+  font-size: 0.5rem;
+}
+.menu-wrapper {
+}
+.menu-wrapper .wrapper-1 {
+  font-size: 0.75rem;
+  color: #8f8f8f;
+}
+.menu-wrapper .wrapper-2 {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #1d1d1d;
+}
+.menu-wrapper .wrapper-2 .new-img {
+  width: 1.55rem;
+  margin-left: 0.5rem;
+}
+h1 {
+  font-size: 1rem;
+  margin: 0;
+}

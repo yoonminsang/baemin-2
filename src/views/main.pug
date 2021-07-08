@@ -1,0 +1,66 @@
+extends layout.pug
+
+block styles
+    link(rel="stylesheet", href="/styles/common.css")
+    link(rel="stylesheet", href="/styles/main.css")
+block header
+    header.header
+        h1 My배민
+block content
+    div.container
+        a.banner
+            img(src='/image/배너.png')
+        if user
+            a.menu-wrapper()
+                img.profile-img(src='/image/프로필.png')
+                span 더귀한분,
+                span.user-name #{user.nickname}
+                img.arrow-img(src='/image/화살표.png')
+        unless user
+            a.menu-wrapper(href='/auth/login')
+                img.profile-img(src='/image/프로필.png')
+                span 로그인해주세요
+                img.arrow-img(src='/image/화살표.png')
+        div.option-wrapper
+            a
+                img(src='/image/포인트.png' alt='포인트')
+                span 포인트
+            a
+                img(src='/image/쿠폰함.png' alt='쿠폰함')
+                span 쿠폰함
+            a
+                img(src='/image/선물함.png' alt='선물함')
+                span 선물함
+            a
+                img(src='/image/찜.png' alt='찜')
+                span 찜
+            a
+                img(src='/image/주문내역.png' alt='주문내역')
+                span 주문내열
+            a
+                img(src='/image/리뷰관리.png' alt='리뷰관리')
+                span 리뷰관리
+        a.menu-wrapper.padding
+            img.disposable-img(src='/image/일회용품.png' alt='일회용품')
+            span.txt-green 일회용품 덜 쓰기, 함께해요!
+            img.arrow-img(src='/image/화살표.png')
+        a.menu-wrapper
+            div.wrapper-1
+                div.wrapper-2
+                    div 배민페이 등록
+                    img.new-img(src='/image/new.png')
+                div 배민페이로 결제하면 최대 5.5% 배민포인트가 적립됩니다!
+            img.arrow-img(src='/image/화살표.png')
+        a.menu-wrapper
+            div.wrapper-1
+                div.wrapper-2
+                    div 가족계정 관리
+                    img.new-img(src='/image/new.png')
+                div 결제수단을 공유해 우리 가족의 끼니를 챙겨주세요.
+            img.arrow-img(src='/image/화살표.png')
+        a.menu-wrapper
+            div 공지사항
+            img.arrow-img(src='/image/화살표.png')
+        a.menu-wrapper
+            div 배민커넥트 지원
+            img.arrow-img(src='/image/화살표.png')
