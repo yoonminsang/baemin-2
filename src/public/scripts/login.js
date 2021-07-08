@@ -24,10 +24,14 @@
             password,
           }),
         });
-        if (res.status === 409) {
+        if (res.ok) {
+          console.log('로그인 성공');
+          location.href = '/';
+        } else {
           const data = await res.json();
-          error.innerHTML = data;
-        } else alert('서버 오류. 다시 시도해주세요');
+          if (res.status === 409) alert(data);
+          else alert('서버 오류. 다시 시도해주세요');
+        }
       } catch (e) {
         console.error(e);
       }
