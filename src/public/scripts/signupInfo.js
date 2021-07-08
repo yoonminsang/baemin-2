@@ -101,7 +101,6 @@
 
   // on / off remove button of each input 
   function handleInputFocusListener(e) {
-      console.log(e.target)
     const $inputContainer = e.target.closest('.input-container');
     const $reset = $inputContainer.querySelector('.reset');
 
@@ -159,12 +158,8 @@
     const $emailValidation = document.querySelector('.email-validation');
 
     const { value } = $emailInput;
-
-    if (value === '' || value === null) {
-      alert('이메일을 입력해주세요');
-      toggleCheck(this, false);
-      emailCheck = false;
-    } else if (emailValidation(value) === false) {
+    
+    if (emailValidation(value) === false) {
       alert('올바르지 않은 이메일 형식입니다');
       toggleCheck(this, false);
       emailCheck = false;
