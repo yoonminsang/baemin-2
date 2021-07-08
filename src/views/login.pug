@@ -1,0 +1,33 @@
+extends layout.pug
+
+block styles
+    link(rel="stylesheet", href="/styles/login.css")
+    link(rel="stylesheet", href="/styles/common.css")
+block header
+    header.header
+        a.close-btn(href='/')
+            img(src='/image/취소.png', alt='닫기')
+block content
+    div.login-content 
+        form
+            input.email.input1(type='text', placeholder='아이디 또는 이메일')
+            input.password.input1(type='password', placeholder='비밀번호')
+            input.login-btn.btn1(type='submit', value='로그인')
+            div.error
+            div.find-content
+                a 아이디 찾기
+                span |
+                a 비밀번호 찾기
+    div.footer
+        a.btn
+            img(src='/image/페이스북.png', alt='페이스북')
+            span 페이스북으로 로그인
+        a.btn
+            img(src='/image/네이버.png', alt='네이버')
+            span 네이버로 로그인
+        a.btn
+            img(src='/image/애플.png', alt='애플')
+            span Apple으로 로그인
+        div.helper 혹시 배달의 민족이 처음이신가요?  
+            a(href='/auth/signup/terms') 회원가입
+    script(src='/scripts/login.js')

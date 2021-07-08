@@ -1,0 +1,29 @@
+extends layout 
+
+block styles
+    link(rel="stylesheet", href="/styles/common.css")
+    link(rel="stylesheet", href="/styles/signup-verify.css")
+block header
+    header.signup-verify
+            a.prev-btn(href="/auth/signup/terms")
+                img.prev-btn-image(src="/image/뒤로가기.png", alt="뒤로가기")
+            div.signup-title 회원가입
+            a.next-btn.inactive(href="/auth/signup/info") 다음
+block content
+    form.signup-verify-container
+        div.input-container
+            label(for="phone") 전화번호
+            input#phone.input1(type="tel", autofocus, name="phone", placeholder="휴대전화 번호를 입력하세요", maxLength="13")
+            div.reset-phone-number
+                img(src="/image/지우기.png", alt="지우기")
+            div.phone-number-validation
+                img(src="/image/검증_F.png", alt="검증")
+    button.verify-number-btn.btn1.show 인증번호 받기
+    div.verify.input-container.hidden
+        label(for="verify-number") 인증번호
+        input#verify-number.input1(type="number", placeholder="인증번호를 입력해주세요", maxLength="4")
+        button.verify-number-again-btn 인증번호 다시받기
+
+    script(src="/scripts/signupVerify.js") 
+
+            
