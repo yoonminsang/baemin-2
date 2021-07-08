@@ -14,7 +14,7 @@
       error.innerHTML = '비밀번호를 입력하세요';
     } else {
       try {
-        await fetch('auth/login', {
+        const res = await fetch('/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -24,11 +24,12 @@
             password,
           }),
         });
-        location.href = '/';
+        if (res.status === 409) {
+          const data = await res.json();
+          error.innerHTML = data;
+        } else alert('서버 오류. 다시 시도해주세요');
       } catch (e) {
-        if (e.response.data) error.innerHTML = e.response.data;
-        else console.error(e);
-        // 409면 이메일 또는 비밀번호가 틀립니다
+        console.error(e);
       }
     }
   };
