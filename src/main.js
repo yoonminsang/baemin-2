@@ -10,7 +10,6 @@ import passport from 'passport';
 import passportConfig from './passport';
 import indexRouter from './routes/index';
 import authRouter from './routes/auth';
-import { resolveSoa } from 'dns';
 
 dotenv.config();
 
