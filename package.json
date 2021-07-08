@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch src/ -r esm src/index.js",
-    "start": "pm2 start src/index.js --node-args='-r esm'"
+    "start": "node src/ -r esm src/index.js"
   },
   "repository": {
     "type": "git",
