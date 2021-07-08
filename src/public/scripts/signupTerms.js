@@ -166,7 +166,8 @@ function App() {
       ageComplete: this.state.ageComplete,
     },
     check: () => {
-      location.href = '/auth/signup/verify';
+      if (this.state.checkComplete && this.state.ageComplete)
+        location.href = '/auth/signup/verify';
     },
   });
   this.setState = (type, nextState) => {
