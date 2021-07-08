@@ -74,15 +74,19 @@
     }
     
     function handleVerifyClickListener(e) {
+       if (isPhoneNumberFull === false) {
+            alert('전화번호를 입력해주세요');
+            return ;
+        }
+        
         const $verifyBtn = document.querySelector('.verify-number-btn');
         const $verifyInputContainer = document.querySelector('.verify.input-container');
-
+ 
         $verifyBtn.classList.remove('show');
         $verifyBtn.classList.add('hidden');
 
         $verifyInputContainer.classList.remove('hidden');
         $verifyInputContainer.classList.add('show');
-        
         fillVerifyNumber();
     }
 
