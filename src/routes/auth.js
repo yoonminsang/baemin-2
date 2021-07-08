@@ -3,6 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import db from '../db/index.js';
 const router = express.Router();
+router.get('/', (req, res) => {
+  const { user } = req;
+  if (user) return res.json({ user });
+  return res.status(401).json('자동 로그인 실패');
+});
 router
   .route('/login')
   .get((req, res) => {
