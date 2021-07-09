@@ -70,6 +70,7 @@ label {
 
 input#email {
   width: 67%;
+  padding-right: 3.25rem;
 }
 
 input#nickname,
@@ -87,7 +88,7 @@ input#birth {
 }
 
 .reset-email {
-  right: 7.5rem;
+  right: 9rem;
   bottom: 0.7rem;
 }
 
@@ -105,8 +106,8 @@ input#birth {
 }
 
 .email-validation {
-  right: 6.7rem;
-  bottom: 1.2rem;
+  right: 7.6rem;
+  bottom: 1.1rem;
 }
 
 .validation img {
