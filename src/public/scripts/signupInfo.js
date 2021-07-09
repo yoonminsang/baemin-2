@@ -330,6 +330,10 @@
         $error.classList.add('hidden');
         toggleCheck(this, true);
         birthCheck = true;
+      } else {
+        $error.classList.remove('hidden');
+        toggleCheck(this, false);
+        birthCheck = false;
       }
     }
     checkAllInfoFilled();
