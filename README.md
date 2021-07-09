@@ -1,6 +1,8 @@
 # baemin-2
 우아한 테크캠프 4기 1주차 팀 2 - 안준범, 윤민상
 
+[baemin2 팀 프로젝트 보러가기](https://baemin-2-first-project.herokuapp.com/) 
+
 # 팀원 소개
 
 ## 안준범
