@@ -41,33 +41,61 @@ router.post('/signup', async (req, res) => {
   const id = uuidv4();
   const { email, nickname, password, birth } = req.body;
   if (
-    db
-      .get('users')
-      .find({
-        email,
-      })
-      .value()
+    // db
+    //   .get('users')
+    //   .find({
+    //     email,
+    //   })
+    //   .value()
+    db.where(['email'], [email]).snapshot.length
   )
     return res.status(409).json('이메일이 존재합니다.');
   else if (
-    db
-      .get('users')
-      .find({
-        nickname,
-      })
-      .value()
+    // db
+    //   .get('users')
+    //   .find({
+    //     nickname,
+    //   })
+    //   .value()
+    db.where(['nickname'], [nickname]).snapshot.length
   )
     return res.status(409).json('닉네임이 존재합니다.');
   const hash = await bcrypt.hash(password, 10);
-  db.get('users')
-    .push({
-      id,
-      email,
-      nickname,
-      password: hash,
-      birth,
-    })
-    .write();
+  // db.get('users')
+  //   .push({
+  //     id,
+  //     email,
+  //     nickname,
+  //     password: hash,
+  //     birth,
+  //   })
+  //   .write();
+  db.insert({
+    id,
+    email,
+    nickname,
+    password: hash,
+    birth,
+  });
   return res.json('회원가입 완료');
+});
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.json('로그아웃');
+});
+router.post('/check', (req, res) => {
+  const { email } = req.body;
+  if (
+    // db
+    //   .get('users')
+    //   .find({
+    //     email,
+    //   })
+    //   .value()
+    db.where(['email'], [email]).snapshot.length
+  )
+    return res.status(409).json('이메일이 존재합니다');
+  return res.json('사용할 수 있는 이메일입니다');
 });
 export default router;

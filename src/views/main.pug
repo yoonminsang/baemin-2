@@ -15,7 +15,7 @@ block content
                 img.profile-img(src='/image/프로필.png')
                 span 더귀한분,
                 span.user-name #{user.nickname}
-                img.arrow-img(src='/image/화살표.png')
+                button.logout 로그아웃
         unless user
             a.menu-wrapper(href='/auth/login')
                 img.profile-img(src='/image/프로필.png')
@@ -64,3 +64,5 @@ block content
         a.menu-wrapper
             div 배민커넥트 지원
             img.arrow-img(src='/image/화살표.png')
+    if user
+        script(src='/scripts/main.js')

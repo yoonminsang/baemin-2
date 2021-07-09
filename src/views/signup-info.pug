@@ -13,7 +13,7 @@ block content
     form.signup-info-container
         div.input-container.email
             label(for="email") 이메일
-            input#email.input1(type="email", autofocus, name="email", placeholder="이메일을 입력하세요")
+            input#email.input1(type="email", name="email", placeholder="이메일을 입력하세요")
             div.reset.reset-email.hidden
                 img(src="/image/지우기.png", alt="지우기")
             div.validation.email-validation.hidden
@@ -21,14 +21,14 @@ block content
             button.duplicate-check 중복확인
         div.input-container.nickname.hidden
             label(for="nickname") 닉네임
-            input#nickname.input1(type="text", autofocus, name="nickname", placeholder="닉네임을 입력하세요" maxlength='15')
+            input#nickname.input1(type="text", name="nickname", placeholder="닉네임을 입력하세요" maxlength='15')
             div.reset.hidden
                 img(src="/image/지우기.png", alt="지우기")
             div.validation.nickname-validation
                 img(src="/image/검증_F.png", alt="검증")
         div.input-container.password.hidden
             label(for="password") 비밀번호
-            input#password.input1(type="password", autofocus, name="password", placeholder="비밀번호를 입력하세요" maxlength='25')
+            input#password.input1(type="password", name="password", placeholder="비밀번호를 입력하세요" maxlength='25')
             div.reset.hidden
                 img(src="/image/지우기.png", alt="지우기")
             div.validation.password-validation
@@ -36,7 +36,7 @@ block content
             span.error.hidden 10자 이상 영어 대문자, 소문자, 숫자, 특수문자 중 2종류를 조합해야 합니다
         div.input-container.birth.hidden
             label(for="birth") 생년월일
-            input#birth.input1(type="text", autofocus, name="birth", placeholder="생년월일을 입력하세요", maxlength="10")
+            input#birth.input1(type="text", name="birth", placeholder="생년월일을 입력하세요", maxlength="10")
             div.reset.hidden
                 img(src="/image/지우기.png", alt="지우기")
             div.validation.birth-validation
